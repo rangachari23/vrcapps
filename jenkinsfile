@@ -2,7 +2,9 @@ pipeline {
 	agent any
 stages {
         stage('Checkout') { 
-            steps {  
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-user', url: 'https://github.com/rangachari23/vrcapps.git']]]) 
+            }
         }
 		stage('Build') { 
             steps {
