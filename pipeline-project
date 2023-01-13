@@ -4,13 +4,11 @@ pipeline{
         maven 'Maven-3.6.1'
     }
     
-    environment{
-        PATH = "/opt/maven3/bin:$PATH"
     }
     stages{
         stage("Git Checkout"){
             steps{
-                git credentialsId: 'javahome2', url: 'https://github.com/srinivas1987devops/myweb.git'
+                git credentialsId: '22cd8465-b01a-4d47-aaa4-d6a34524356e', url: 'https://github.com/rangachari23/vrcapps.git'
             }
         }
         stage("Maven Build"){
@@ -42,11 +40,11 @@ pipeline{
             steps{
                 sshagent(['tomcat-new']) {
                 sh """
-                    scp -o StrictHostKeyChecking=no target/myweb-8.2.0.war  ec2-user@172.31.41.172:/home/ec2-user/apache-tomcat-9.0.64/webapps/
+                    scp -o StrictHostKeyChecking=no target/myweb-8.2.0.war  ec2-user@10.0.30.209:/home/ec2-user/apache-tomcat-9.0.71/webapps/
                     
-                    ssh ec2-user@172.31.41.172 /home/ec2-user/apache-tomcat-9.0.64/bin/shutdown.sh
+                    ssh ec2-user@10.0.30.209 /home/ec2-user/apache-tomcat-9.0.71/bin/shutdown.sh
                     
-                    ssh ec2-user@172.31.41.172 /home/ec2-user/apache-tomcat-9.0.64/bin/startup.sh
+                    ssh ec2-user@10.0.30.209 /home/ec2-user/apache-tomcat-9.0.71/bin/startup.sh
                 
                 """
             }
